@@ -18,9 +18,7 @@ class Tile:
         self.bottomRightCornerX = self.x + TILE_SIZE
         self.bottomRightCornerY = self.y + TILE_SIZE
 
-
         #coordinates of the walls 
-
         self.draw_walls(canvas)
 
     def draw_walls(self,canvas):
@@ -43,7 +41,16 @@ class Tile:
             canvas.delete(self.bottomWall)
             canvas.delete(nextTile.topWall) 
 
-
+    def listOfUnvisitedNeigbhours(self) -> bool:
+        """
+        Allows use to loop while we still have unvisited neighbours
+        """
+        listOfUnvisitedNeighbours = []
+        for tile in self.neighbours.values():
+            if tile != None and tile.visited == False:
+                listOfUnvisitedNeighbours.append(tile)
+        return listOfUnvisitedNeighbours
+    
     def addNeigbhour(self, tile):
         if tile != None:
             if tile.x < self.x:

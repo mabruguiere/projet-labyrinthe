@@ -1,8 +1,12 @@
 import Tile
+import random 
+from random import randrange
+from time import sleep
 
 ROWS = 25
 COLS = 25
 TILE_SIZE = 25
+DEFAULT_CONSTRUCTION_SPEED = 20 #increase for a slower speed
 
 class Maze:
     def __init__(self, canvas):
@@ -11,6 +15,13 @@ class Maze:
         #we add to every tile their neighbour
         for tile in self.tileList:
             self.addNeihgboursToTile(tile)
+        
+        #We first choose a random tile from the Maze to start from
+        startTileX = randrange(0 * TILE_SIZE , 25 * TILE_SIZE, TILE_SIZE)
+        startTileY = randrange(0 * TILE_SIZE , 25 * TILE_SIZE, TILE_SIZE) #important to add TILE_SIZE as the step to get valid coordinates
+        currentTile = self.getTileFromCoor(startTileX,startTileY)
+
+        self.drawMaze(currentTile, canvas, DEFAULT_CONSTRUCTION_SPEED)
 
         """for elt in self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE).neighbours.values():
             print(f"x : {elt.x}, y : {elt.y}")"""
@@ -51,3 +62,22 @@ class Maze:
             if tile.x == x and tile.y == y:
                 return tile
     
+    def drawMaze(self, currentTile, canvas, speed : int):
+        currentTile.visited = True
+        univisitedNeighbours = currentTile.listOfUnvisitedNeigbhours()
+        while univisitedNeighbours: #while the list of unvisited neighbours is not empty is equivalent to the current tile still having neighbours to visit
+            #we choose a random neighbours among the one unvisited, we only have the ones defined (diferent from null)
+            nextTile = random.choice(list(univisitedNeighbours)) 
+
+            #we want to see the progression of the construction of the maze and not only the final result
+            canvas.update()
+            canvas.after(speed) 
+            
+            #Recursive call
+            currentTile.removeWall(canvas, nextTile)
+            canvas.update()
+
+            self.drawMaze(nextTile, canvas, speed)
+
+            #We update the list of unvisited neighbours for the backtracking part so we don't stay in the loop forever
+            univisitedNeighbours = currentTile.listOfUnvisitedNeigbhours() 
