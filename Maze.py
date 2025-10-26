@@ -7,14 +7,17 @@ TILE_SIZE = 25
 class Maze:
     def __init__(self, canvas):
         self.tileList = []
-        self.drawMaze(canvas)
+        self.drawTile(canvas)
         #we add to every tile their neighbour
         for tile in self.tileList:
             self.addNeihgboursToTile(tile)
 
-        """for elt in self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE).neighbours:
+        """for elt in self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE).neighbours.values():
             print(f"x : {elt.x}, y : {elt.y}")"""
         # canvas.delete(self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE).topWall) # après test la ligne suivante marche
+        """tile = self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE)
+        nextTile = tile.neighbours["rightTile"]
+        tile.removeWall(canvas, nextTile)"""
     
     def addNeihgboursToTile(self, tile : Tile):
         topTileX = tile.x
@@ -37,9 +40,7 @@ class Maze:
         if(rightTileX <= COLS * 25):
             tile.addNeigbhour(self.getTileFromCoor(rightTileX,rightTileY)) # we do it here so we don't add a cell that is outside the canvas
 
-
-
-    def drawMaze(self, canvas):
+    def drawTile(self, canvas):
         #Adding the cell to the maze and drawing them (we draw the wall)
         for i in range(ROWS):
             for j in range(COLS):
@@ -49,3 +50,4 @@ class Maze:
         for tile in self.tileList:
             if tile.x == x and tile.y == y:
                 return tile
+    

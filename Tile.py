@@ -5,7 +5,8 @@ class Tile:
         self.x = x
         self.y = y
         self.visited = False
-        self.neighbours = []
+        #we initialize the neighbours to none, it will cahnge later in the programm
+        self.neighbours = {"leftTile" : None, "rightTile" : None, "topTile" : None, "bottomTile" : None}
 
         #wall position to draw them
         self.topLeftCornerX = self.x
@@ -28,8 +29,28 @@ class Tile:
         self.bottomWall = canvas.create_line(self.bottomLeftCornerX, self.bottomLeftCornerY, self.bottomRightCornerX, self.bottomRightCornerY, width=2, fill="black")
         self.rightWall = canvas.create_line(self.bottomRightCornerX, self.bottomRightCornerY, self.topRightCornerX, self.topRightCornerY, width=2, fill="black")
 
-    def deleteWall(self,canvas):
-        pass
+    def removeWall(self,canvas,nextTile): 
+        if nextTile == self.neighbours["leftTile"]:
+            canvas.delete(self.leftWall)
+            canvas.delete(nextTile.rightWall) #if the next tile is the one to our left then we destroy our left wall and the next tile right wall
+        elif nextTile == self.neighbours["rightTile"]:
+            canvas.delete(self.rightWall)
+            canvas.delete(nextTile.leftWall) 
+        elif nextTile == self.neighbours["topTile"]:
+            canvas.delete(self.topWall)
+            canvas.delete(nextTile.bottomWall) 
+        elif nextTile == self.neighbours["bottomTile"]:
+            canvas.delete(self.bottomWall)
+            canvas.delete(nextTile.topWall) 
+
 
     def addNeigbhour(self, tile):
-        self.neighbours.append(tile)
+        if tile != None:
+            if tile.x < self.x:
+                self.neighbours["leftTile"] = tile
+            elif tile.y < self.y:
+                self.neighbours["topTile"] = tile
+            elif tile.x > self.x:
+                self.neighbours["rightTile"] = tile
+            elif tile.y > self.y:
+                self.neighbours["bottomTile"] = tile
