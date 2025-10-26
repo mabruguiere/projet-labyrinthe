@@ -8,11 +8,13 @@ class Maze:
     def __init__(self, canvas):
         self.tileList = []
         self.drawMaze(canvas)
-        #we add to every tile their neigbhour
+        #we add to every tile their neighbour
         for tile in self.tileList:
             self.addNeihgboursToTile(tile)
 
-        # canvas.delete(self.getCellFromCoor(0 * TILE_SIZE,0 * TILE_SIZE).topWall) # après test la ligne suivante marche
+        """for elt in self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE).neighbours:
+            print(f"x : {elt.x}, y : {elt.y}")"""
+        # canvas.delete(self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE).topWall) # après test la ligne suivante marche
     
     def addNeihgboursToTile(self, tile : Tile):
         topTileX = tile.x
