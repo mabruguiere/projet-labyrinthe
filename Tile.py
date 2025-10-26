@@ -27,3 +27,6 @@ class Tile:
         self.leftWall = canvas.create_line(self.topLeftCornerX,self.topLeftCornerY, self.bottomLeftCornerX, self.bottomLeftCornerY, width=2, fill="black")
         self.bottomWall = canvas.create_line(self.bottomLeftCornerX, self.bottomLeftCornerY, self.bottomRightCornerX, self.bottomRightCornerY, width=2, fill="black")
         self.rightWall = canvas.create_line(self.bottomRightCornerX, self.bottomRightCornerY, self.topRightCornerX, self.topRightCornerY, width=2, fill="black")
+
+    def addNeigbhour(self, tile):
+        self.neighbours.append(tile)

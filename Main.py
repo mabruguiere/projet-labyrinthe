@@ -16,11 +16,11 @@ windows = tk.Tk()
 windows.title("Labyrinthe")
 windows.resizable(False,False) 
 
-canvas = tk.Canvas(windows, width=WINDOW_WIDTH, height=WINDOWS_HEIGHT, background="white")
+canvas = tk.Canvas(windows, width=WINDOW_WIDTH, height=WINDOWS_HEIGHT, borderwidth=0, highlightthickness=0, background="white")
 canvas.pack()
 windows.update()
 
-#it is better if we center the window
+#We center the window
 window_width = windows.winfo_width() 
 window_height = windows.winfo_height()
 screen_width = windows.winfo_screenwidth()
@@ -29,8 +29,7 @@ screen_height = windows.winfo_screenheight()
 windows_x = int((screen_width/2)-(window_width/2))
 windows_y = int((screen_height/2)-(window_height/2))
 
-windows.geometry(f"{window_height}x{window_width}+{windows_x}+{windows_y}") #geometry expect a string not an int
-
+windows.geometry(f"{window_height}x{window_width}+{windows_x}+{windows_y}") #geometry expect a string not an int, this places the window to the center of the screen
 
 Maze.Maze(canvas)
 
