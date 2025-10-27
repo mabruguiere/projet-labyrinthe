@@ -44,7 +44,7 @@ class Maze:
         #Can we continue ? 
         if vertical:
             #choosing which tile won't have a wall
-            noWallCoor  = random.randrange(startY,endY, 25) #pose problème car pas a jout selon recursion
+            noWallCoor  = random.randrange(startY,endY, 25)
             # choosing where to trace the walls
             x = random.randrange(startX,endX, 25)
             for tile in self.tileList:
