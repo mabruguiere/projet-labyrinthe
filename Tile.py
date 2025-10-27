@@ -7,7 +7,7 @@ class Tile:
         self.visited = False
         #we initialize the neighbours to none, it will cahnge later in the programm
         self.neighbours = {"leftTile" : None, "rightTile" : None, "topTile" : None, "bottomTile" : None}
-
+        #self.rectangle = canvas.create_rectangle(x,y,x + TILE_SIZE, y + TILE_SIZE, bg="white")
         #wall position to draw them
         self.topLeftCornerX = self.x
         self.topLeftCornerY = self.y

@@ -11,6 +11,7 @@ DEFAULT_CONSTRUCTION_SPEED = 20 #increase for a slower speed
 class Maze:
     def __init__(self, canvas):
         self.tileList = []
+
         self.drawTile(canvas)
         #we add to every tile their neighbour
         for tile in self.tileList:
@@ -57,6 +58,7 @@ class Maze:
             for j in range(COLS):
                 self.tileList.append(Tile.Tile(i*TILE_SIZE,j*TILE_SIZE, canvas))
 
+
     def getTileFromCoor(self, x: int, y: int) -> Tile:
         for tile in self.tileList:
             if tile.x == x and tile.y == y:
@@ -64,20 +66,25 @@ class Maze:
     
     def drawMaze(self, currentTile, canvas, speed : int):
         currentTile.visited = True
+        rectangle = canvas.create_rectangle(currentTile.x,currentTile.y, currentTile.x + TILE_SIZE, currentTile.y + TILE_SIZE, fill="green")
         univisitedNeighbours = currentTile.listOfUnvisitedNeigbhours()
         while univisitedNeighbours: #while the list of unvisited neighbours is not empty is equivalent to the current tile still having neighbours to visit
             #we choose a random neighbours among the one unvisited, we only have the ones defined (diferent from null)
             nextTile = random.choice(list(univisitedNeighbours)) 
-
+        
             #we want to see the progression of the construction of the maze and not only the final result
             canvas.update()
             canvas.after(speed) 
             
             #Recursive call
             currentTile.removeWall(canvas, nextTile)
+            
+            canvas.delete(rectangle)
             canvas.update()
-
             self.drawMaze(nextTile, canvas, speed)
 
             #We update the list of unvisited neighbours for the backtracking part so we don't stay in the loop forever
             univisitedNeighbours = currentTile.listOfUnvisitedNeigbhours() 
+
+        canvas.delete(rectangle) #this part is mandatory otherwise we would have a green square forever whenever we hit the base case in our recursion
+        canvas.update()
