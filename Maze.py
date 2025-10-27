@@ -44,9 +44,9 @@ class Maze:
         #Can we continue ? 
         if vertical:
             #choosing which tile won't have a wall
-            noWallCoor  = random.randrange(startY,endY, 25)
+            noWallCoor  = random.randrange(startY,endY + TILE_SIZE, TILE_SIZE)
             # choosing where to trace the walls
-            x = random.randrange(startX,endX, 25)
+            x = random.randrange(startX,endX + TILE_SIZE, TILE_SIZE)
             for tile in self.tileList:
                 if tile.x == x and tile.y != noWallCoor and startY < tile.y and tile.y < endY:
                     tile.draw_left_wall(canvas)
@@ -58,9 +58,9 @@ class Maze:
             self.recursive_division(canvas, x , endX , startY, endY)
         else: # horizontal case
             #choosing which tile won't have a wall
-            noWallCoor = random.randrange(startX,endX, 25)
+            noWallCoor = random.randrange(startX,endX + TILE_SIZE, TILE_SIZE)
             # choosing where to trace the walls
-            y = random.randrange(startY,endY, 25)
+            y = random.randrange(startY,endY + TILE_SIZE, TILE_SIZE)
             for tile in self.tileList:
                 if tile.y == y and tile.x != noWallCoor and startX < tile.x and tile.x < endX:
                     tile.draw_bottom_wall(canvas)
