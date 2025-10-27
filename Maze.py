@@ -38,13 +38,13 @@ class Maze:
         else:
             vertical = random.choice([True,False])
 
-        if width < TILE_SIZE * 2 or height < TILE_SIZE * 2: #base case, if the section become to small wqe stop
+        if width < TILE_SIZE * 2 or height < TILE_SIZE * 2: #base case, if the section become to small we stop
             return
 
         #Can we continue ? 
         if vertical:
             #choosing which tile won't have a wall
-            noWallCoor  = random.randrange(0,height, 25) #pose problème car pas a jout selon recursion
+            noWallCoor  = random.randrange(startY,endY, 25) #pose problème car pas a jout selon recursion
             # choosing where to trace the walls
             x = random.randrange(startX,endX, 25)
             for tile in self.tileList:
@@ -58,7 +58,7 @@ class Maze:
             self.recursive_division(canvas, x , endX , startY, endY)
         else: # horizontal case
             #choosing which tile won't have a wall
-            noWallCoor  = random.randrange(0,width, 25)
+            noWallCoor = random.randrange(startX,endX, 25)
             # choosing where to trace the walls
             y = random.randrange(startY,endY, 25)
             for tile in self.tileList:

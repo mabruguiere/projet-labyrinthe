@@ -33,6 +33,6 @@ windows.geometry(f"{window_height}x{window_width}+{windows_x}+{windows_y}") #geo
 
 maze = Maze.Maze(canvas)
 #maze.recursive_dfs(canvas)
-maze.recursive_division(canvas, 0, ROWS * TILE_SIZE,0, COLS * TILE_SIZE)
+maze.recursive_division(canvas, 0 * TILE_SIZE, ROWS * TILE_SIZE, 0 * TILE_SIZE , COLS * TILE_SIZE)
 
 windows.mainloop()
