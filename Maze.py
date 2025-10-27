@@ -37,8 +37,29 @@ class Maze:
         startTileX = randrange(0 * TILE_SIZE , 25 * TILE_SIZE, TILE_SIZE)
         startTileY = randrange(0 * TILE_SIZE , 25 * TILE_SIZE, TILE_SIZE) #important to add TILE_SIZE as the step to get valid coordinates
         currentTile = self.getTileFromCoor(startTileX,startTileY)
+        self.drawMazeWithPrim(currentTile, canvas)
 
-    
+
+    def drawMazeWithPrim(self,currentTile : Tile, canvas):
+        tileSet = set()
+        currentTile.visited = True
+
+        for neighbour in  currentTile.listOfUnvisitedNeigbhours():
+            tileSet.add((currentTile ,neighbour))
+
+        while tileSet: 
+            randomTile,randomNeighbourTile = random.choice(list(tileSet))
+            tileSet.remove((randomTile, randomNeighbourTile))
+
+            if not randomNeighbourTile.visited:
+                randomTile.removeWall(canvas, randomNeighbourTile)
+                randomNeighbourTile.visited = True
+                for neighbour in randomNeighbourTile.listOfUnvisitedNeigbhours():
+                    tileSet.add((randomNeighbourTile, neighbour))
+            canvas.update()
+            canvas.after(10)
+
+
 
     def recursive_division(self, canvas, startX : int, endX : int, startY : int, endY : int):
         height = endY - startY

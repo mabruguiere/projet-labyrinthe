@@ -32,7 +32,8 @@ windows_y = int((screen_height/2)-(window_height/2))
 windows.geometry(f"{window_height}x{window_width}+{windows_x}+{windows_y}") #geometry expect a string not an int, this places the window to the center of the screen
 
 maze = Maze.Maze(canvas)
-maze.recursive_dfs(canvas)
+#maze.recursive_dfs(canvas)
 #maze.recursive_division(canvas, 0 * TILE_SIZE, ROWS * TILE_SIZE, 0 * TILE_SIZE , COLS * TILE_SIZE)
+maze.prims_algorithm(canvas)
 
 windows.mainloop()
