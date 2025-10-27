@@ -5,7 +5,7 @@ import Maze
 # constant for the display of the tkinter window
 
 ROWS = 25
-COLS = 25 
+COLS = 25
 TILE_SIZE = 25 #25 pixels
 
 WINDOW_WIDTH = COLS * TILE_SIZE
@@ -31,6 +31,8 @@ windows_y = int((screen_height/2)-(window_height/2))
 
 windows.geometry(f"{window_height}x{window_width}+{windows_x}+{windows_y}") #geometry expect a string not an int, this places the window to the center of the screen
 
-Maze.Maze(canvas)
+maze = Maze.Maze(canvas)
+#maze.recursive_dfs(canvas)
+maze.recursive_division(canvas, 0, ROWS * TILE_SIZE,0, COLS * TILE_SIZE)
 
 windows.mainloop()

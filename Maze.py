@@ -11,11 +11,15 @@ DEFAULT_CONSTRUCTION_SPEED = 20 #increase for a slower speed
 class Maze:
     def __init__(self, canvas):
         self.tileList = []
-
         self.drawTile(canvas)
-        #we add to every tile their neighbour
         for tile in self.tileList:
             self.addNeihgboursToTile(tile)
+        #we add to every tile their neighbour
+        
+    
+    def recursive_dfs(self, canvas):
+        for tile in self.tileList:
+            tile.draw_walls(canvas)
         
         #We first choose a random tile from the Maze to start from
         startTileX = randrange(0 * TILE_SIZE , 25 * TILE_SIZE, TILE_SIZE)
@@ -24,6 +28,51 @@ class Maze:
 
         self.drawMaze(currentTile, canvas, DEFAULT_CONSTRUCTION_SPEED)
     
+    def recursive_division(self, canvas, startX : int, endX : int, startY : int, endY : int):
+        height = endY - startY
+        width = endX - startX 
+        if height > width:
+            vertical = False
+        elif width > height:
+            vertical = True
+        else:
+            vertical = random.choice([True,False])
+
+        if width < TILE_SIZE * 2 or height < TILE_SIZE * 2: #base case, if the section become to small wqe stop
+            return
+
+        #Can we continue ? 
+        if vertical:
+            #choosing which tile won't have a wall
+            noWallCoor  = random.randrange(0,height, 25) #pose problème car pas a jout selon recursion
+            # choosing where to trace the walls
+            x = random.randrange(startX,endX, 25)
+            for tile in self.tileList:
+                if tile.x == x and tile.y != noWallCoor and startY < tile.y and tile.y < endY:
+                    tile.draw_left_wall(canvas)
+                    if tile.neighbours["leftTile"] != None:
+                        tile.neighbours["leftTile"].draw_right_wall(canvas )
+            canvas.update()
+            canvas.after(10)
+            self.recursive_division(canvas, startX , x , startY, endY)
+            self.recursive_division(canvas, x , endX , startY, endY)
+        else: # horizontal case
+            #choosing which tile won't have a wall
+            noWallCoor  = random.randrange(0,width, 25)
+            # choosing where to trace the walls
+            y = random.randrange(startY,endY, 25)
+            for tile in self.tileList:
+                if tile.y == y and tile.x != noWallCoor and startX < tile.x and tile.x < endX:
+                    tile.draw_bottom_wall(canvas)
+                    if tile.neighbours["bottomTile"] != None:
+                        tile.neighbours["bottomTile"].draw_top_wall(canvas )
+            canvas.update()
+            canvas.after(10)
+            self.recursive_division(canvas, startX , endX , startY, y)
+            self.recursive_division(canvas, startX , endX , y, endY)
+
+        
+
     def addNeihgboursToTile(self, tile : Tile):
         topTileX = tile.x
         topTileY = tile.y - TILE_SIZE

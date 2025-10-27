@@ -5,9 +5,10 @@ class Tile:
         self.x = x
         self.y = y
         self.visited = False
+        
         #we initialize the neighbours to none, it will cahnge later in the programm
         self.neighbours = {"leftTile" : None, "rightTile" : None, "topTile" : None, "bottomTile" : None}
-        #self.rectangle = canvas.create_rectangle(x,y,x + TILE_SIZE, y + TILE_SIZE, bg="white")
+
         #wall position to draw them
         self.topLeftCornerX = self.x
         self.topLeftCornerY = self.y
@@ -18,8 +19,7 @@ class Tile:
         self.bottomRightCornerX = self.x + TILE_SIZE
         self.bottomRightCornerY = self.y + TILE_SIZE
 
-        #coordinates of the walls 
-        self.draw_walls(canvas)
+        
 
     def draw_walls(self,canvas):
         self.draw_top_wall(canvas)
