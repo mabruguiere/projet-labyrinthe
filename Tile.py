@@ -22,10 +22,22 @@ class Tile:
         self.draw_walls(canvas)
 
     def draw_walls(self,canvas):
-        self.topWall = canvas.create_line(self.topLeftCornerX,self.topLeftCornerY, self.topRightCornerX, self.topRightCornerY, width=2, fill="black")
+        self.draw_top_wall(canvas)
+        self.draw_left_wall(canvas)   
+        self.draw_bottom_wall(canvas)         
+        self.draw_right_wall(canvas)
+
+    def draw_left_wall(self, canvas):
         self.leftWall = canvas.create_line(self.topLeftCornerX,self.topLeftCornerY, self.bottomLeftCornerX, self.bottomLeftCornerY, width=2, fill="black")
-        self.bottomWall = canvas.create_line(self.bottomLeftCornerX, self.bottomLeftCornerY, self.bottomRightCornerX, self.bottomRightCornerY, width=2, fill="black")
+    
+    def draw_right_wall(self, canvas):
         self.rightWall = canvas.create_line(self.bottomRightCornerX, self.bottomRightCornerY, self.topRightCornerX, self.topRightCornerY, width=2, fill="black")
+
+    def draw_top_wall(self, canvas):
+        self.topWall = canvas.create_line(self.topLeftCornerX,self.topLeftCornerY, self.topRightCornerX, self.topRightCornerY, width=2, fill="black")
+
+    def draw_bottom_wall(self,canvas):
+        self.bottomWall = canvas.create_line(self.bottomLeftCornerX, self.bottomLeftCornerY, self.bottomRightCornerX, self.bottomRightCornerY, width=2, fill="black")
 
     def removeWall(self,canvas,nextTile): 
         if nextTile == self.neighbours["leftTile"]:
