@@ -26,8 +26,20 @@ class Maze:
         startTileY = randrange(0 * TILE_SIZE , 25 * TILE_SIZE, TILE_SIZE) #important to add TILE_SIZE as the step to get valid coordinates
         currentTile = self.getTileFromCoor(startTileX,startTileY)
 
-        self.drawMaze(currentTile, canvas, DEFAULT_CONSTRUCTION_SPEED)
+        self.drawMazeWithDFS(currentTile, canvas, DEFAULT_CONSTRUCTION_SPEED)
     
+    def prims_algorithm(self,canvas):
+        #We pick a random cell
+        for tile in self.tileList:
+            tile.draw_walls(canvas)
+        
+         #We first choose a random tile from the Maze to start from
+        startTileX = randrange(0 * TILE_SIZE , 25 * TILE_SIZE, TILE_SIZE)
+        startTileY = randrange(0 * TILE_SIZE , 25 * TILE_SIZE, TILE_SIZE) #important to add TILE_SIZE as the step to get valid coordinates
+        currentTile = self.getTileFromCoor(startTileX,startTileY)
+
+    
+
     def recursive_division(self, canvas, startX : int, endX : int, startY : int, endY : int):
         height = endY - startY
         width = endX - startX 
@@ -106,7 +118,7 @@ class Maze:
             if tile.x == x and tile.y == y:
                 return tile
     
-    def drawMaze(self, currentTile, canvas, speed : int):
+    def drawMazeWithDFS(self, currentTile, canvas, speed : int):
         currentTile.visited = True
         rectangle = canvas.create_rectangle(currentTile.x,currentTile.y, currentTile.x + TILE_SIZE, currentTile.y + TILE_SIZE, fill="green")
         univisitedNeighbours = currentTile.listOfUnvisitedNeigbhours()
@@ -123,7 +135,7 @@ class Maze:
             
             canvas.delete(rectangle)
             canvas.update()
-            self.drawMaze(nextTile, canvas, speed)
+            self.drawMazeWithDFS(nextTile, canvas, speed)
 
             #We update the list of unvisited neighbours for the backtracking part so we don't stay in the loop forever
             univisitedNeighbours = currentTile.listOfUnvisitedNeigbhours() 
