@@ -23,13 +23,6 @@ class Maze:
         currentTile = self.getTileFromCoor(startTileX,startTileY)
 
         self.drawMaze(currentTile, canvas, DEFAULT_CONSTRUCTION_SPEED)
-
-        """for elt in self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE).neighbours.values():
-            print(f"x : {elt.x}, y : {elt.y}")"""
-        # canvas.delete(self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE).topWall) # après test la ligne suivante marche
-        """tile = self.getTileFromCoor(0 * TILE_SIZE,0 * TILE_SIZE)
-        nextTile = tile.neighbours["rightTile"]
-        tile.removeWall(canvas, nextTile)"""
     
     def addNeihgboursToTile(self, tile : Tile):
         topTileX = tile.x
