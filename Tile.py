@@ -55,7 +55,7 @@ class Tile:
 
     def listOfUnvisitedNeigbhours(self) -> bool:
         """
-        Allows use to loop while we still have unvisited neighbours
+        Allows us to loop while we still have unvisited neighbours
         """
         listOfUnvisitedNeighbours = []
         for tile in self.neighbours.values():
